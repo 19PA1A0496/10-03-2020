@@ -1,0 +1,150 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled2.ipynb",
+      "provenance": [],
+      "toc_visible": true,
+      "authorship_tag": "ABX9TyNFVcCztnvSpCPP+yebbaTe",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/19PA1A0496/10-03-2020/blob/master/batch%2012\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 129
+        },
+        "id": "fZBniyCjhKg3",
+        "outputId": "79d4fc23-2223-446f-e069-c02fbbfe7d1b"
+      },
+      "source": [
+        "//defines pins numbers\n",
+        "const int trigPin1 = 2; //defining echo sensor pins 1\n",
+        "const int echoPin1 = 3;\n",
+        "const int trigPin2 = 4; //defining echo sensor pins 2\n",
+        "const int echoPin2 = 5;\n",
+        "const int trigPin3 = 6; //defining echo sensor pins 3\n",
+        "const int echoPin3 = 7;\n",
+        "const int trigPin4 = 8; //defining echo sensor pins 4\n",
+        "const int echoPin4 = 9;\n",
+        "const int buzzerPin = 13; // the number of the buzzer pin\n",
+        "// defines variables\n",
+        "long duration1; //defining echo sensor varables 1\n",
+        "int distance1;\n",
+        "long duration2; //defining echo sensor varables 2\n",
+        "int distance2;\n",
+        "long duration3; //defining echo sensor varables 3\n",
+        "int distance3;\n",
+        "long duration4; //defining echo sensor varables 4\n",
+        "int distance4;\n",
+        "void setup() {\n",
+        "\n",
+        "pinMode(buzzerPin, OUTPUT);\n",
+        "pinMode(trigPin1, OUTPUT); // Sets the trigPin as an Output 1\n",
+        "pinMode(echoPin1, INPUT); // Sets the echoPin as an Input 1\n",
+        "pinMode(trigPin2, OUTPUT); // Sets the trigPin as an Output 2\n",
+        "pinMode(echoPin2, INPUT); // Sets the echoPin as an Input 2\n",
+        "pinMode(trigPin3, OUTPUT); // Sets the trigPin as an Output 3\n",
+        "pinMode(echoPin3, INPUT); // Sets the echoPin as an Input 3\n",
+        "pinMode(trigPin4, OUTPUT); // Sets the trigPin as an Output 4\n",
+        "pinMode(echoPin4, INPUT); // Sets the echoPin as an Input 4\n",
+        "Serial.begin(9600); // Starts the serial communication\n",
+        "}\n",
+        "\n",
+        "void loop() {\n",
+        "// Clears the trigPin\n",
+        "digitalWrite(trigPin1, LOW);\n",
+        "delayMicroseconds(2);\n",
+        "\n",
+        "digitalWrite(trigPin1, HIGH); // Sets the trigPin on HIGH state for 10 micro seconds\n",
+        "delayMicroseconds(10);\n",
+        "digitalWrite(trigPin1, LOW);\n",
+        "duration1 = pulseIn(echoPin1, HIGH);// Reads the echoPin, returns the sound wave travel time in\n",
+        "microseconds\n",
+        "distance1= duration1*0.034/2; // Calculating the distance\n",
+        "\n",
+        "digitalWrite(trigPin2, LOW);\n",
+        "delayMicroseconds(2);\n",
+        "digitalWrite(trigPin2, HIGH); // Sets the trigPin on HIGH state for 10 micro seconds\n",
+        "delayMicroseconds(10);\n",
+        "digitalWrite(trigPin2, LOW);\n",
+        "duration2 = pulseIn(echoPin2, HIGH);// Reads the echoPin, returns the sound wave travel time in\n",
+        "microseconds\n",
+        "distance2= duration2*0.034/2; // Calculating the distance\n",
+        "\n",
+        "digitalWrite(trigPin3, LOW);\n",
+        "delayMicroseconds(2);\n",
+        "digitalWrite(trigPin3, HIGH); // Sets the trigPin on HIGH state for 10 micro seconds\n",
+        "delayMicroseconds(10);\n",
+        "digitalWrite(trigPin3, LOW);\n",
+        "duration3 = pulseIn(echoPin3, HIGH);// Reads the echoPin, returns the sound wave travel time in\n",
+        "microseconds\n",
+        "distance3= duration3*0.034/2; // Calculating the distance\n",
+        "\n",
+        "digitalWrite(trigPin4, LOW);\n",
+        "delayMicroseconds(2);\n",
+        "digitalWrite(trigPin4, HIGH); // Sets the trigPin on HIGH state for 10 micro seconds\n",
+        "delayMicroseconds(10);\n",
+        "digitalWrite(trigPin4, LOW);\n",
+        "duration4 = pulseIn(echoPin4, HIGH); // Reads the echoPin, returns the sound wave travel time in\n",
+        "microseconds\n",
+        "distance4= duration4*0.034/2; // Calculating the distance\n",
+        "\n",
+        "if ( distance1 <= 30 || distance2 <= 30 || distance3 <= 30 || distance4 <= 30)\n",
+        "{ //logical OR , compare with safe distance\n",
+        "\n",
+        "// turn BUZZER on:\n",
+        "digitalWrite(buzzerPin, HIGH);\n",
+        "}else {\n",
+        "// turn buzzer off:\n",
+        "digitalWrite(buzzerPin, LOW);\n",
+        "}\n",
+        "\n",
+        "// Prints the distance on the Serial Monitor\n",
+        "Serial.print(\"Distance1: \" );\n",
+        "Serial.print(distance1);\n",
+        "Serial.print(\"\\t Distance2: \");\n",
+        "Serial.print(distance2);\n",
+        "Serial.print(\"\\t Distance3: \" );\n",
+        "Serial.print(distance3);\n",
+        "Serial.print(\"\\t Distance4: \");\n",
+        "Serial.print(distance4);\n",
+        "Serial.println();\n",
+        "delay(500);\n",
+        "}"
+      ],
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "SyntaxError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;36m  File \u001b[0;32m\"<ipython-input-4-ca404d843822>\"\u001b[0;36m, line \u001b[0;32m1\u001b[0m\n\u001b[0;31m    (/defines, pins, numbers)\u001b[0m\n\u001b[0m     ^\u001b[0m\n\u001b[0;31mSyntaxError\u001b[0m\u001b[0;31m:\u001b[0m invalid syntax\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
